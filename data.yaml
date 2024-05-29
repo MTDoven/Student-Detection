@@ -1,5 +1,0 @@
-train: ../facetest/yolo_wider/train
-val: ../facetest/yolo_wider/val
-
-nc: 1
-names: ['head']

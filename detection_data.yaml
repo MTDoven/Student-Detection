@@ -1,0 +1,5 @@
+train: "C:\\Users\\t1526\\Project\\Student-Detection\\dataset\\DetectionData\\train"
+val: "C:\\Users\\t1526\\Project\\Student-Detection\\dataset\\DetectionData\\val"
+
+nc: 1
+names: ['head']

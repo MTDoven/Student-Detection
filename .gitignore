@@ -1,1 +1,4 @@
 /.idea/
+/checkpoints/
+/runs/
+/yolov8n.pt
