@@ -11,7 +11,7 @@ if __name__ == '__main__':
                 epochs=100,
                 workers=8,
                 batch=16,
-                imgsz=800,
+                imgsz=640,
                 save=True,
                 save_period=5,
                 cos_lr=True,

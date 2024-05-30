@@ -1,8 +1,9 @@
+import warnings
 import torch
 from torch.nn.functional import pairwise_distance
 
 
-def k_means(init_centers, data_points, num_iterations=10):
+def k_means(init_centers, data_points, num_iterations=20):
     """
     K-means clustering algorithm
     :parameter init_centers: shape = (num_clusters, features_dim)
@@ -27,9 +28,11 @@ def k_means(init_centers, data_points, num_iterations=10):
             new_centers.append(new_center)
         new_centers = torch.stack(new_centers)
         # center not change
-        if torch.allclose(new_centers, init_centers, atol=1e-5):
+        if torch.allclose(new_centers, init_centers, atol=1e-4):
             break
         init_centers = new_centers
+    else:
+        warnings.warn("k-means algorithm may have not converged, but reached max number of iterations.")
     return cluster_assignments, init_centers
 
 
