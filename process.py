@@ -24,6 +24,8 @@ classifier = classifier.to(device)
 logger = Logger(log_history_length=config["log_history_length"])
 
 
+
+
 # TODO: !!! We need a iterator for extract video stream !!!
 stream: Iterable[Image] = ...
 stream_iterator = iter(stream)
