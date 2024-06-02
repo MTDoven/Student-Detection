@@ -54,7 +54,7 @@ def visualize():
         for index, point in enumerate(points):
             *center, state, score = point
             cv2.putText(image, "{}: {:.2f}".format(index, score), (center[0]+4, center[1]-6), cv2.FONT_HERSHEY_COMPLEX,
-                        1, (0, 0, 255) if score < 0.5 else (0, 255, 0), 1, cv2.LINE_AA)
+                        1, (0, 0, 255) if score < 0.5 else (0, 255, 0), 1.5, cv2.LINE_AA)
             if state == 0:  # head down
                 cv2.circle(image, center, 5, (0, 0, 255), -1)
             else:  # state == 1:  # head up
