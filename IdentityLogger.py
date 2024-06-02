@@ -1,6 +1,7 @@
 import sys
 import torch
-from Cluster import k_means, pairwise_distance
+from torch import Tensor
+from KmeansCluster import k_means, pairwise_distance
 
 
 class IdentityLogger:
@@ -37,15 +38,20 @@ class IdentityLogger:
         return cluster_assignments
 
     def log(self, xywh: Tensor, state: Tensor, time: float):
-        data_points = xywh[:, 0:2]
-        cluster_assignments = self.confirm_ids(xywh=xywh)
-        time = torch.zeros_like(state) + time
-        self.history.append((cluster_assignments, data_points, state, time))
+        cluster_assignments = self.confirm_ids(xywh)
+        data_points = torch.zeros_like(self.centers)
+        this_state = torch.zeros(size=(len(self.centers),), device=data_points.device)
+        for index, i in enumerate(cluster_assignments):
+            data_points[i, :] += xywh[index, 0:2]
+            this_state[i] = state[index]
+        time = torch.zeros_like(this_state) + time
+        indexes = torch.tensor(list(range(0, len(self.centers))), device=data_points.device)
+        self.history.append((indexes, data_points, this_state, time))
         if len(self.history) > self.log_history_length * 2:
             self.history = self.history[-self.log_history_length:]
 
     def get_scores(self, start_time=None, end_time=None):
-        ids = torch.cat([i[0] for i in self.history], dim=0)
+        indexes = torch.cat([i[0] for i in self.history], dim=0)
         states = torch.cat([i[2] for i in self.history], dim=0)
         time = torch.cat([i[3] for i in self.history], dim=0)
         if start_time is None:
@@ -54,7 +60,7 @@ class IdentityLogger:
             end_time = torch.max(time) + 1.0
         scores = []
         for i in range(len(self.centers)):
-            mask = torch.bitwise_and(ids == i, start_time < time < end_time)
+            mask = torch.bitwise_and(indexes == i, torch.bitwise_and(start_time < time, time < end_time))
             score = torch.masked_select(states, mask).mean().item()
             scores.append(score)
         return scores
