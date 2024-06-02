@@ -3,6 +3,7 @@ from RtmpStream import StreamIterator, visualize_data_lock, visualize_data, star
 from IdentityLogger import IdentityLogger
 import torch
 import time
+import sys
 
 
 config = {
@@ -11,7 +12,7 @@ config = {
     "process_interval": 5,
 }
 
-source_url = 'rtmp://10.198.246.135:1935/live/8888' #r"C:\Users\t1526\Desktop\WeChat_20240602195533.mp4"#
+source_url = sys.argv[1]
 stream_iterator = StreamIterator(source_url)
 next(stream_iterator)
 
