@@ -50,6 +50,10 @@ dataset
         └─labels
 ````
 
+**Live-Streaming**: First, a server is built using [Nginx](https://nginx.org/), and then the video is encoded 
+and encapsulated by ffmpeg and pushed to the server through the RTMP 
+network protocol.
+
 **Detection:** In step of object detection, we use [Yolov9c](https://github.com/ultralytics/ultralytics) model for 
 single object detection. And we do not distinguish head pose at this time.  
 For training detection model, run ``python trainDetection.py``.
