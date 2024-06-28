@@ -78,3 +78,5 @@ for a long time, such as someone who goes to the restroom and returned
 to the original seat. The ID of the target detection algorithm will change, 
 resulting in inconsistent state information.
 
+## Example
+![Test Video](./example.gif)
