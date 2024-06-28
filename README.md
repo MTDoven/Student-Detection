@@ -1,5 +1,5 @@
 # Student Status Detection
-An AI algorithm for detecting and logging the status of a student in classrooms.
+An AI project for detecting and logging the status of a student in classrooms.
 
 ## Environment
 This project can run on Nvidia GPU or CPU without modifying the code.
