@@ -7,12 +7,13 @@ import sys
 
 
 config = {
-    "id_confirm_steps": 100 * 5,
+    "id_confirm_steps": 100 * 3,
     "log_history_length": 14400 * 5,
     "process_interval": 5,
+    "threshold": 0.9,
 }
 
-source_url = sys.argv[1]
+source_url = sys.argv[1]  # "rtmp://192.168.137.39:1935/live/8888"
 stream_iterator = StreamIterator(source_url)
 next(stream_iterator)
 
@@ -56,7 +57,7 @@ while True:
         # confirm state
         cropped_heads = crop_image(image=image, boxes=boxes)
         results = classifier.predict(cropped_heads, verbose=False)
-        is_head_up = torch.tensor([result.probs.top1 for result in results])
+        is_head_up = torch.tensor([result.probs.data[1].item() > config["threshold"] for result in results]).to(torch.long)
 
         # cal ids and score
         logger.log(boxes, is_head_up, time_stamp)
