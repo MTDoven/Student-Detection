@@ -79,4 +79,4 @@ to the original seat. The ID of the target detection algorithm will change,
 resulting in inconsistent state information.
 
 ## Example
-![Test Video](./example.gif)
+![Test Video](https://github.com/MTDoven/Student-Detection/blob/master/example.gif)
